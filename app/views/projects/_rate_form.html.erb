@@ -1,0 +1,8 @@
+<%= form_for @project, remote: true, html: { style: "display: none;" } do |f| -%>
+  <p>
+    $ <%= f.text_field :rate,
+            :style => "width: 50px;",
+            :placeholder => "0.00" %> / hour
+  </p>
+  <p><%= f.submit "Update" %> or <%= link_to "Cancel", "#", :id => "hide_project_rate" %></p>
+<% end -%>

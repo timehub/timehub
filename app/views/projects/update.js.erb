@@ -1,0 +1,17 @@
+<% if @project.valid? %>
+  $("#hourly_rate").html('<%= escape_javascript(render('hourly_rate')) %>');
+  $(".hourly_rate").html('<%= escape_javascript number_to_currency(@project.rate.to_f) %>');
+  hideRateForm();
+
+  // event price is present. invoices/_form.html.erb
+  if ($(".price").size() >= 1) {
+    window.project = new Project("<%= @project.name %>", <%= @project.reload.rate.to_f %>);
+    window.invoice = new Invoice();
+    updateGrandTotal(invoice);
+    buildInvoice(window.project, window.invoice);
+
+    <% if @project.rate.to_f > 0 %>
+      $(".not_charging_message").hide();
+    <% end %>
+  };
+<% end %>

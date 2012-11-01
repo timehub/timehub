@@ -1,0 +1,27 @@
+<div class="actions">
+  <div id="check-boxes-menu">
+    <a href="#" id="arrow" class="button arrowdown icon">Select</a>
+    <div id="select-options">
+      <label class="box" id="all-entries">All</label>
+      <label class="box" id="none-entries">None</label>        
+      <label class="box" id="new-entries">Pending</label>
+      <label class="box" id="old-entries">Invoiced</label>
+      <label class="box" id="mine-entries">Mine</label>
+    </div>
+  </div>
+
+  <%= log_button_link_to "Repo's invoices (#{@project.invoices.size})", project_invoices_path(@project) %>
+
+  <%= reload_button_link_to "Load more commits from Github", populate_project_commits_path(@project, :format => :js, :after => commits.first.sha), { :remote => true, :method => :put } %>
+</div>
+
+<%= form_tag new_project_invoice_path(@project), :method => :post do %>
+  <div class="commits_group">
+    <%= render commits %>
+  </div>
+
+  <div class="create_invoice_actions">
+    <%= image_tag "top_to_right_arrow.png" %><%= submit_tag "Create an invoice with the selected commits" %>
+    <%= reload_button_link_to "Load older commits", project_commits_path(@project, :format => :js, :before_time => commits.last.committed_at, :before_sha => commits.last.sha), :remote => true , :class => "load_older_commits" %>      
+  </div>
+<% end %>

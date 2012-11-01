@@ -1,0 +1,22 @@
+<div id="projects" class="wrapper">
+<h2 class="centered">
+  Oh, no! You have no projects yet. You can fetch them from GitHub.
+</h2>
+
+<div class="actions centered">
+  <%= populate_projects_link "Fetch repositories from Github" %>
+  <%= clear %>
+  
+  
+  <div class="empty-image">
+    <%= image_tag 'empty_repos.png', :class => "bordered" %>
+  </div>
+  
+</div>
+
+
+  <div class="no_results" style="display: none">
+    No project matches your search term, my friend.
+  </div>
+<%= clear %>
+</div>

@@ -1,0 +1,39 @@
+<%= div_for commit do %>
+  <div class="checkbox">
+    <%= check_box_tag "commit_ids[]",
+                      commit.id,
+                      !commit.invoiced?,
+                      :"data-invoiced" => commit.invoiced?,
+                      :"data-mine" => commit.authored_by?(current_user),
+                      :id => "commit_ids_#{commit.id}",
+                      :class => "commit-entry" %>
+  </div>
+
+  <%= label_tag "commit_ids[#{commit.id}]" do %>
+    <div class="avatar"><%= avatar_tag(commit.author_avatar_url) %></div>
+
+    <div class="name"><%= commit.author_username %></div>
+
+    <div class="message">
+    <pre><%= link_to commit.message, commit.github_url, :target => "_blank" %></pre>
+    </div>
+
+    <div class="status"><%= status_bulb_for(commit) %></div>
+
+    <div class="date"><%= time_ago_in_words commit.committed_at %> ago</div>
+    
+    <% if commit.estimated_minutes %>
+      <div class="estimated">
+        Estimated: <%= format_minutes(commit.estimated_minutes) %>
+      </div>
+    <% end %>
+    
+    <% if commit.invoices.any? %>
+      <%= clear %>
+      <div class="invoices">
+        Invoiced in <%= commit.invoices.map{|invoice| link_to invoice.name, invoice}.to_sentence.html_safe %>
+      </div>
+    <% end %>
+  <% end %>
+  
+<% end %>

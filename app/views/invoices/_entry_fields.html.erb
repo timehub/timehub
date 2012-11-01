@@ -1,0 +1,10 @@
+<li class="nested_fields">
+  <%= builder.hidden_field :commit_id %>
+  
+  <%= builder.text_field :description, :placeholder => "Task Description", :class => "entryDescription", :style => "width: 500px; margin-right: 50px" %>
+  
+  <%= builder.text_field :formatted_minutes, :placeholder => "0:00", :class => "entryMinutes", :style => "width: 50px; margin-right: 50px" %>
+  
+  
+  <%= link_to_remove_fields "Remove", builder %>
+</li>

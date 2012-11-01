@@ -1,0 +1,9 @@
+<% if @projects.empty? %>
+  <h2>It looks like you don't have any repos on Github yet.</h2>
+  <p>
+    You need to add some repos first so we can generate invoices based on them.
+  </p>
+<% else %>
+  <%= render @projects %>
+<% end %>
+<%= clear %>

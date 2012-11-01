@@ -1,0 +1,63 @@
+<h1 class="title">Your Repositories</h1>
+
+<% if @projects && @projects.any? %>
+
+  <div class="description">
+    <p>Here is the list of your GitHub repositories. You can import your commits for each project and create invoices from them.</p>
+  </div>
+
+  <div class="actions">
+    <div id="fetch-repos">
+      <%= populate_projects_link "Fetch repositories from Github" %>
+    </div>
+
+    <% if @projects && @projects.any? %>
+      <div class="search">
+        <form>
+          <%= text_field_tag :search, nil, :class => "projects_quicksearch", :placeholder => "Search repos" %>
+        </form>
+        
+        <div id="filters">
+          Filter:
+          <span id="all" class="filter">
+            <%= link_to "All Repos", '#', :data => {:show => ".project"}, :class => "filtered" %>
+          </span>
+          <span id="private" class="filter">
+            <%= link_to "Private", '#', :data => {:show => ".project.private"} %>
+          </span>
+          <span id="public" class="filter">
+            <%= link_to "Public", '#', :data => {:show => ".project.public"} %>
+          </span>
+        </div>
+        
+      </div>
+    <% end %>
+
+    <%= clear %>
+  </div>
+
+  <div id="projects" class="wrapper">
+  <% if !@projects.nil? && @projects.any? %>
+    <%= render @projects %>
+
+    <div class="no_results" style="display: none">
+      No project matches your search term, my friend.
+    </div>
+
+  <% else %>
+    <h2 class="centered">
+      Oh, no! You have no projects yet. You can fetch them from GitHub.
+    </h2>
+  <% end %>
+  <%= clear %>
+  </div>
+  
+
+
+
+
+
+<% else %>
+  <%= render "projects/empty_index" %>
+<% end %>
+

@@ -1,0 +1,38 @@
+<%= div_for project, :class => project.visibility do %>
+  <div class="name">
+    <% if project.private? %>
+      <span>
+        <%= image_tag 'lock.png', :class => "tipsied", :title => "Private repository on Github", :alt => "Private repository on Github", :width => "20" %>
+      </span>
+    <% end %>
+    <span><%= link_to project.display_name, project %></span>
+  </div>
+  
+  
+  <div class="details">
+    <div id="invoices_count" class="detail">
+      <span class="big"><%= project.invoices.size %></span>
+      invoices
+    </div>
+    
+    <div id="hourly_rate" class="detail">
+      <% if project.rate? %>
+        <span class="big"><%= number_to_currency project.rate %></span>
+      <% else %>
+        <span class="big">$0</span>
+      <% end %>
+      / hour
+    </div>
+    
+    <div id="total_payed" class="detail">
+      <span class="big"><%= number_to_currency project.total_invoiced %></span>
+      charged
+    </div>
+    <%= clear %>
+  </div>
+  <%= clear %>
+  
+   
+  
+   
+<% end %>

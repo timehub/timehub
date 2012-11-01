@@ -1,0 +1,3 @@
+<% unless @commits.empty? %>
+  $("#commits").html("<%= escape_javascript(render :file => "commits/populate.html.erb") %>");
+<% end %>

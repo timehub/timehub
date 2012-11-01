@@ -1,0 +1,7 @@
+<h2><%= @project.name %></h2>
+<h3>New Invoice</h3>
+
+<%= render :partial => "form" %>
+
+<div class="lright"><%= arrowleft_button_link_to "Cancel Invoice", @project %></div>
+<%= clear %>

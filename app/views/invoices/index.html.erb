@@ -1,0 +1,60 @@
+<% if @project %>
+  <h1>All invoices for <%= @project.name %></h1>
+<% else %>
+  <h1>All my invoices</h1>
+<% end %>
+
+<div class="invoices">
+  <% if @invoices.nil? or @invoices.empty? %>
+  
+    <% if @project %>
+      <h3>You don't have invoices for <%= @project.name %>. You can go <%= link_to "there", @project %> and create one.</h3>
+    <% else %>
+      <h3>You don't have invoices. Go to any of your <%= link_to "projects", projects_path %> to create one.</h3>
+    <% end %>
+    
+    <div class="actions centered">
+
+      <div class="empty-image">
+        <%= image_tag 'invoices_empty.png', :class => "bordered" %>
+      </div>
+
+    </div>
+    
+    
+  <% else %>
+    <table width="90%" align="center" class="invoice-table" colspacing="0" cellspacing="0" border="0">
+      <tr>
+        <th>Title</th>
+        <th>Hourly Rate</th>
+        <th>Time</th>
+        <th>Value</th>
+        <% if @project.nil? %>
+          <th>Related Repo</th>
+        <% end %>
+        <th width="60px"></th>
+      </tr>
+    
+      <% for invoice in @invoices %>
+        <tr>
+          <td><%= link_to invoice.name, invoice_path(invoice) %></td>
+          <td><%= number_to_currency invoice.rate.to_f %></td>
+          <td><%= invoice.formatted_minutes %></td>
+          <td><%= number_to_currency(invoice.total) %></td>
+          <% if @project.nil? %>
+            <td><%= link_to invoice.project, invoice.project %></td>
+          <% end %>
+          <td class="actions" width="60px">
+            <%= link_to "Edit invoice", edit_project_invoice_path(invoice.project, invoice), :id => "edit", :title => "Edit invoice", :alt => "Edit invoice", :class => "tipsied" %>
+            <%= link_to "Remove invoice", invoice, :method => :delete, :confirm => "Do you really want to delete this invoice? This can't be undone.", :id => "remove", :title => "Remove invoice", :alt => "Remove invoice", :class => "tipsied" %>
+          </td>
+        </tr>
+      <% end %>
+    
+    </table>
+  <% end %>
+  
+  <% if @project and @invoices.any? %>
+    <h3>You can go to <%= link_to @project.name, @project %> and create more invoices there.</h3>
+  <% end %>
+</div>

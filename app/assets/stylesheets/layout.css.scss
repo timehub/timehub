@@ -1,0 +1,164 @@
+$background-color: #FFF;
+$link-color: #257BC4;
+$border-color: #34404a;
+$light-border-color: #888;
+$h2-color: #50535a;
+
+body, html {
+  margin: 0; padding: 0;
+  font-size: 14px;
+  font-family: Helvetica, Verdana, Arial;
+  background: darken($background-color, 4);
+  position: relative;
+}
+
+.clear{ clear: both; }
+.centered {text-align: center;}
+
+.left   {float: left;}
+.rleft  {float: left; margin-left: 15px;}
+.right  {float: right;}
+.lright {float: right; margin-right: 15px;}
+
+.timehub{
+  font-family: 'Amaranth', sans-serif;
+}
+
+.wrapper{
+  width: 940px;
+  margin: 0 auto;
+  &:after{
+    clear: both;
+    content: ".";
+    height: 0;
+    display: none;
+    zoom: 1%;
+  }
+}
+
+a{
+  color: $link-color;
+}
+
+.main-description{
+  font-size: 1.3em;
+}
+
+ul, li {margin: 0; padding: 0; list-style: none;}
+
+.bbutton {
+  @include button();
+  
+  a{
+    text-decoration: none;
+  }
+}
+
+.heart{
+  font-size: 1.2em;
+  margin-top: -8px;
+}
+
+.errors{
+  background: darken($background-color, 10);
+  padding: 5px 8px 8px;
+  border: 1px solid darken($background-color, 5);
+  
+  @include box-shadow(0px 1px 4px rgba(0,0,0,0.7));
+  @include border-radius(5px);
+  @include linear-gradient(darken($background-color, 15), darken($background-color, 1));
+  ol, li {list-style-type: decimal;}
+}
+
+.ajax-error{
+  z-index: 100;
+  position: fixed;
+  text-align: center;
+  margin-left: auto;
+  top: 65px;
+  left: 10px;
+  background-color: #E33;
+  background-color: rgba(230, 0, 0, 0.70);
+  padding: 8px 15px;
+  @include border-radius(5px);
+  color: #EEE;
+  text-shadow: 1px 1px 0px #000;
+  display: none;
+}
+
+.progress_indicator {
+  z-index: 100;
+  position: fixed;
+  text-align: center;
+  margin-left: auto;
+  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.70);
+  display: none;
+  
+  &#spinner{
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    @include border-radius(15px);
+  }
+  
+  &#loader{
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 30px;
+    color: #FFF;
+    text-shadow: 1px 1px 1px #000;
+    @include border-radius(5px);
+  }
+}
+
+#main{
+  z-index: 0;
+  position: relative;
+  background: $background-color;
+  margin-top: 1px;
+  padding: 15px;
+  @include box-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+}
+
+#select-options{
+  margin-left: 8px;
+  margin-top: 20px;
+  @include box-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+.empty-image{
+  margin-top: 25px;
+  
+  img {
+    border: 1px solid #DDD;
+    @include box-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
+  }
+}
+
+
+/*-----------------------------------------------------------------------
+Flash Messages
+------------------------------------------------------------------------*/
+.flash{
+  display: none;
+}
+
+.flash.notice{
+  background: #E2F9E3;
+  color: #060;
+  border: 1px solid #99CC99;
+  padding: 8px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.flash.alert{
+  background: #C00;
+  color: #FFF;
+  border: 1px solid #CC9999;
+  padding: 8px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+

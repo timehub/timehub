@@ -1,0 +1,54 @@
+// Place your application-specific JavaScript functions and classes here
+// This file is automatically included by javascript_include_tag :defaults
+function removeFields(link) {
+  $(link).prev("input[type=hidden]").val(true);
+  $(link).parents(".nested_fields").hide();
+  $(link).parents(".nested_fields").find('.entryMinutes').val('0');
+  $(link).parents(".nested_fields").find('.entryMinutes').trigger('change');
+  $(link).parents(".nested_fields").find('.entryMinutes').remove();
+}
+
+function addFields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  $(link).parent().before(content.replace(regexp, new_id));
+}
+
+$(document).ready(function() {
+  $(".remove_nested").live('click', function(event) {
+    removeFields($(this));
+    return false;
+  });
+
+  $(".invoice-table tr").live('mouseover', function(){
+    $(this).find(".actions").show();
+  });
+
+  $(".invoice-table tr").live('mouseout', function(){
+    $(this).find(".actions").hide();
+  });
+
+  $("a[data-remote=true]").live("ajax:before", function(){
+    var asset_image = '<%= image_tag("progress_large.gif") %>';
+    $("body").append('<div class="progress_indicator" id="spinner">' + asset_image + '</div>');
+    $("body").append('<div class="progress_indicator" id="loader">Loading...</div>');
+    $(".progress_indicator").fadeIn("slow");
+  });
+
+  $("a[data-remote=true]").live("ajax:error", function(event, xhr, status){
+    var error_message = xhr.responseText;
+    $("body").append('<div class="ajax-error">' + error_message + '</div>');
+    $(".ajax-error").fadeIn('normal').delay(4000).fadeOut('normal');
+  });
+
+  $("a[data-remote=true]").live("ajax:complete", function(){
+    $("body .progress_indicator").fadeOut("slow", function() {
+      $(this).remove();
+    });
+  });
+
+  $(".tipsied").tipsy({ gravity : "e", fade :true });
+
+  // $().UItoTop({ easingType: 'easeOutQuart' }); // This is fucking everything up.
+
+});

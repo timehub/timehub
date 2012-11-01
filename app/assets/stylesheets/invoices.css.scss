@@ -1,0 +1,84 @@
+.invoices, .invoice{
+  h4{margin: 0; padding: 0;}
+  
+  .description p:first-child{
+    margin-top: 3px;
+  }
+  
+  table.invoice-table{
+    border: 1px solid darken($background-color, 15);
+    margin-bottom: 25px;
+    
+    th{
+      background: darken($background-color, 5);
+      padding: 8px;
+      border-bottom: 1px solid darken($background-color, 15);
+      text-align: left;
+    }
+
+    td{padding: 8px; border: 0px;}
+    
+    td.actions{
+      display: none;
+    }
+    
+    tr:hover{
+      background: darken($background-color, 4);
+    }
+    
+    .last-row th{
+      border: 0;
+      border-top: 1px solid darken($background-color, 15);
+    }
+    
+    td.actions{
+      width: 60px;
+      a{
+        text-indent: -999em;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 10px;
+        text-decoration: none;
+        text-shadow: 0;
+        color: #000;
+        background: url(image_path('css3buttons/css3-github-buttons-icons.png')) 0 99px no-repeat;
+
+        &#edit{
+          background-position: 0 -264px;
+        }
+        
+        &#remove{
+          background-position: 0 -60px;
+        }
+      }
+    }
+  }
+}
+
+.nested_fields{
+  margin-bottom: 10px;
+}
+
+#task-headers{
+  position: relative;
+  width: 645px;
+  margin-bottom: 15px;
+  span{
+    font-weight: bold;
+  }
+  
+  .task-description{
+    
+  }
+  
+  .task-duration{
+    float:  right;
+  }
+}
+
+.price {
+  h3 {
+    display: inline-block;
+  }
+}

@@ -1,0 +1,56 @@
+<%= content_for :javascripts do %>
+  <script type="text/javascript">
+    jQuery(function($){
+      $("#how-it-works").click(function(event) {
+        var $steps = $("#steps");
+        $steps.slideDown('fast', function(){
+          $('html, body').animate({
+              scrollTop: $("#steps_title").offset().top - 30
+          }, 500);
+        });
+
+        return false;
+      });
+    });
+  </script>
+<% end %>
+
+
+<div id="home">
+  <div id="home_header">
+    <h2>Code is fun. Invoices are not.</h2>
+    <h3>Let us take care of generating your invoices from your GitHub repositories.</h3>
+  </div>
+
+  <div class="main-description">
+    <div id="showcase">
+        <div class="preview">
+          <h3>You add time notes to your commits</h3>
+          <%= image_tag("time_notes.png") %>
+        </div>
+
+        <div class="preview">
+          <h3>We automatically generate nice invoices!</h3>
+
+          <%= image_tag("activity_details.png") %>
+        </div>
+    </div>
+
+    <%= clear %>
+
+    <div id="steps_title" class="centered" style="margin: 15px 0;">
+      <%= button_link_to "See how it works", '#', :id => "how-it-works", :style => "font-size: 1.2em" %>
+    </div>
+    
+    <%= render "static_pages/help" %>
+    
+  </div>
+
+
+  <% unless current_user %>
+  <div class="centered">
+    <div> then </div>
+    <%= button_link_to "Sign in with your GitHub account", login_path, :style => "margin-top: 15px; font-size: 1.2em" %>
+  </div>
+  <% end %>
+</div>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @invoice.title  %> | TimeHub - 'Cause code is poetry, and invoices suck!</title>
+  
+  <style type="text/css">
+
+  html, body{
+    margin: 0; padding: 0;
+    font-size: 14px;
+    font-family: Helvetica, Verdana, Arial;
+    position: relative;
+  }
+
+  h1.title{
+    text-size: 1.3em;
+    border-bottom: 1px solid darkgray;
+  }
+  
+  h4{
+    margin: 0; padding: 0;
+  }
+  
+  .description p:first-child{
+    margin-top: 3px;
+  }
+  
+  table{
+    border: 1px solid #D9D9D9;
+    margin-bottom: 25px;
+    margin-top: 40px;
+  }
+  
+  th{
+    background: #F2F2F2;
+    padding: 8px;
+    border-bottom: 1px solid #D9D9D9;
+    text-align: left;
+  }
+    
+  td{padding: 8px; border: 0px;}
+  
+
+  .last-row th{
+    border: 0;
+    border-top: 1px solid #D9D9D9;
+  }
+
+
+</style>
+  
+</head>
+<body>
+
+  <%= div_for @invoice do %>
+    <h1 class="title">
+      <%= @invoice.title.presence || "Invoice for #{@invoice.project.name}" %>
+    </h1>
+    
+    <% unless @invoice.recipient.blank? %>
+      <h4>Recipient Information:</h4>
+      <div class="description">
+        <%= simple_format @invoice.recipient %>
+      </div>
+    <% end %>
+
+    <% unless @invoice.creator_name.blank? %>
+      <h4>Invoice Creator:</h4>
+      <div class="description">
+        <%= simple_format @invoice.creator_name %>
+      </div>
+    <% end %>
+
+    <% unless @invoice.creator_details.blank? %>
+      <h4>Invoice Notes:</h4>
+      <div class="description">
+        <%= simple_format @invoice.creator_details %>
+      </div>
+    <% end %>
+
+    <table width="100%" align="center" class="invoice-table" colspacing="0" cellspacing="0" border="0">
+      <tr>
+        <th>Description</th>
+        <th>Hourly Rate</th>
+        <th>Time</th>
+        <th>Total</th>
+      </tr>
+
+      <% for entry in @invoice.entries %>
+        <tr class="entry">
+          <td><%= entry.description %></td>
+          <td><%= number_to_currency(@invoice.rate.to_f) %></td>
+          <td><%= entry.formatted_minutes %></td>
+          <td><%= number_to_currency(entry.hours * @invoice.rate.to_f) %></td>
+        </tr>
+      <% end %>
+
+      <tr class="last-row">
+        <th colspan="2">Total</th>
+        <th><%= @invoice.total_hours.round(1) %></th>
+        <th><%= number_to_currency(@invoice.total) %></th>
+      </tr>
+    </table>
+
+
+  <% end %>
+
+
+
+
+</body>
+</html>

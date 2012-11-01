@@ -1,0 +1,59 @@
+/*-----------------------------------------------------------------------
+Forms
+------------------------------------------------------------------------*/
+
+::-webkit-input-placeholder {
+   color: #888;
+}
+
+:-moz-placeholder {
+   color: #888;
+}
+
+form{
+  h2{
+    color: #000;
+    font-size: 14px;
+    margin: 0 0 3px;
+    padding: 0;
+  }
+  
+  h1 {
+    color: #000;
+    font-size: 20px;
+  }
+}
+
+input{
+  margin-bottom: 10px;
+  padding: 3px;
+}
+
+textarea, input[type="text"], input[type="password"] {
+  border: 1px dashed lighten($border-color, 45);
+  outline: none;
+  width: 750px;
+  padding-left: 7px;
+  font-size: 14px;
+  background: darken($background-color, 2%);
+  color: #000;
+  @include border-radius(5px);
+  
+  &:hover,
+  &:focus{
+    border: 1px solid lighten($border-color, 25);
+  }
+  
+  &:focus{
+    @include box-shadow(0px 0px 4px $h2-color);
+    @include transition(all, 0.2s)
+  }
+}
+
+textarea{
+  padding-top: 7px;
+}
+
+input[type="submit"]{
+  @include button(lighten($border-color, 15));
+}

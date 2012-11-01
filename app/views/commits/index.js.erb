@@ -1,0 +1,5 @@
+<% if @commits.any? %>
+  $("<%= escape_javascript(render @commits) %>").hide().appendTo(".commits_group").slideDown();
+  // Make sure the load older commits button keeps working
+  $("a.load_older_commits").attr("href", '<%= escape_javascript(project_commits_path(@project, :format => :js, :before_time => @commits.last.committed_at, :before_sha => @commits.last.sha)) %>');
+<% end %>

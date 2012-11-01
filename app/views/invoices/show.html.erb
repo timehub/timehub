@@ -1,0 +1,62 @@
+<%= div_for @invoice do %>
+  <h1>
+    <%= @invoice.name %>
+  </h1>
+
+  <% unless @invoice.recipient.blank? %>
+    <h4>Recipient Information:</h4>
+    <div class="description">
+      <%= simple_format @invoice.recipient %>
+    </div>
+  <% end %>
+
+  <% unless @invoice.creator_name.blank? %>
+    <h4>Invoice Creator:</h4>
+    <div class="description">
+      <%= simple_format @invoice.creator_name %>
+    </div>
+  <% end %>
+  
+  <% unless @invoice.creator_details.blank? %>
+    <h4>Invoice Notes:</h4>
+    <div class="description">
+      <%= simple_format @invoice.creator_details %>
+    </div>
+  <% end %>
+
+  <h3>Activity Details</h3>
+
+  <table width="90%" align="center" class="invoice-table" colspacing="0" cellspacing="0" border="0">
+    <tr>
+      <th>Description</th>
+      <th>Hourly Rate</th>
+      <th>Time</th>
+      <th>Total</th>
+    </tr>
+    
+    <% for entry in @invoice.entries %>
+      <tr class="entry">
+        <td><%= entry.description %></td>
+        <td><%= number_to_currency(@invoice.rate.to_f) %></td>
+        <td><%= entry.formatted_minutes %></td>
+        <td><%= number_to_currency(entry.hours * @invoice.rate.to_f) %></td>
+      </tr>
+    <% end %>
+    
+    <tr class="last-row">
+      <th colspan="2">Total</th>
+      <th><%= @invoice.total_hours.round(1) %></th>
+      <th><%= number_to_currency(@invoice.total) %></th>
+    </tr>
+  </table>
+
+
+  <p>
+    <%= arrowleft_button_link_to "Related Repository", @project %>
+    <%= edit_button_link_to "Edit Invoice", [:edit, @project, @invoice] %>
+    <%= log_button_link_to "Download Printable PDF", :format => :pdf %>
+  </p>
+
+<% end %>
+
+

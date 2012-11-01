@@ -1,0 +1,8 @@
+<% if @project.rate.blank? %>
+  <p>You haven't set your <strong>hourly rate</strong> for this project yet.</p>
+  <p><%= link_to "Set your hourly rate now.", "#", :class => "edit_project_rate" %></p>
+<% else %>
+  <p>Hourly Rate: <strong id="hourly_rate"><%= number_to_currency(@project.rate) %></strong>
+     <%= link_to "Edit", "#", :class => "edit_project_rate edit" %>
+  </p>
+<% end %>

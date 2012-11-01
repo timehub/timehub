@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TimeHub - 'Cause code is poetry, and invoices suck!</title>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
+
+  <%= yield(:javascripts) if content_for?(:javascripts) %>
+
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-25135614-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+
+</head>
+<body>
+
+  <div id="header">
+    <div id="main-nav" class="wrapper">
+      <div id="logo">
+        <h1><%= link_to "TimeHub", current_user ? projects_path : root_path %></h1>
+        <h3><%= link_to "Invoicing for GitHub", root_url %></h3>
+      </div>
+
+      <% if current_user %>
+        <%= render "shared/user_nav" %>
+      <% else %>
+      <ul id="user-nav">
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Help",  help_path %></li>
+        <li><%= link_to "Blog",  blog_path %></li>
+        <li><%= link_to "Sign in with GitHub", login_path %></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="main" class="wrapper">
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash #{name}" %>
+    <% end %>
+
+
+    <%= yield %>
+  </div>
+
+  <div id="footer" class="wrapper">
+
+
+    <div style="margin-top: 20px">
+      Created by <%= link_to "Funky Town", 'http://rallyonrails.com/teams/47', :target => "_blank" %>
+    </div>
+
+    <div style="margin-top: 20px">
+      <%= link_to "Andrés Mejía Posada", 'https://github.com/andmej', :target => "_blank" %> |
+      <%= link_to "Juan Esteban Pemberthy", 'https://github.com/jpemberthy', :target => "_blank" %> |
+      <%= link_to "Nicolás Hock Isaza", 'https://github.com/nhocki', :target => "_blank" %> |
+      <%= link_to "Federico Builes", 'https://github.com/febuiles', :target => "_blank" %>
+    </div>
+  </div>
+
+</body>
+</html>

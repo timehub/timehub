@@ -1,0 +1,52 @@
+<%= content_for :javascripts do %>
+  <script type="text/javascript">
+    jQuery(function($){
+      $("#arrow").live('click', function(event) {
+        $("#select-options").toggle();
+        event.stopPropagation();
+        return false;
+      });
+
+      $('html').live('click', function() {
+        if ($("#select-options").is(":visible")) {
+          $("#select-options").hide();
+          return false;
+        }
+      });
+    });
+  </script>
+<% end %>
+
+
+<div class="title">
+  <h2><%= @project.display_name %></h2>
+  <%= button_link_to "See this repo on Github", @project.html_url, :target => "_blank" %>
+</div>
+
+<%= clear %>
+
+<div id="hourly_rate">
+  <%= render 'hourly_rate' %>
+</div>
+<%= render 'projects/rate_form' %>
+
+<div>
+  <h3>Commits in this repository</h3>
+
+  <div id="commits">
+    <% if @commits.empty? %>
+      <p>There are no commits yet. We'll need to load your recent commits in order to generate an invoice from them.</p>
+      
+      <div class="centered">
+        <%= reload_button_link_to "Bring recent commits in from Github", populate_project_commits_path(@project, :format => :js), :remote => true, :method => :put %>
+      </div>
+      
+      <div class="empty-image centered">
+        <%= image_tag 'empty_commits.png', :class => "bordered" %>
+      </div>
+
+    <% else %>
+      <%= render "commits/commits", :commits => @commits %>
+    <% end %>
+  </div>
+</div>

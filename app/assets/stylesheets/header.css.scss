@@ -1,0 +1,72 @@
+#header{
+  z-index: 1;
+  position: relative;
+  background: darken($background-color, 5%);
+  min-height: 80px;
+  @include box-shadow(0px 1px 3px rgba(0, 0, 0, 0.5));
+  @include linear-gradient(lighten($background-color, 3), darken($background-color, 7));
+
+
+  #main-nav{
+    margin: 0 auto;
+
+    #logo{
+      float: left;
+      font-family: 'Amaranth', sans-serif;
+      padding-top: 7px;
+      a{
+        color: black;
+        text-decoration: none;
+        text-shadow: 2px 1px #FFF;
+      }
+      h1, h3{margin: 0; padding: 0; text-align: center;}
+      h3 {font-size: 0.9em;}
+    }
+
+    #user-nav{
+      float: right;
+      background: darken($background-color, 10%);
+      padding: 10px;
+      text-align: right;
+      font-size: 14px;
+
+      @include border-radius(0px 0px 8px 8px);
+      @include box-shadow(0px 1px 3px rgba(0, 0, 0, 0.5));
+      @include linear-gradient(darken($background-color, 0), darken($background-color, 10));
+      
+      a{
+        text-decoration: none;
+        border-bottom: 0px;
+        &:hover{
+          color: darken($link-color, 10%);
+          border-bottom: 1px dotted darken($link-color, 10%);
+        }
+      }
+
+      li{
+        display: block;
+        float: left;
+        margin: 0px 10px 3px;
+        line-height: 1.3em;
+        strong {
+          text-shadow: none;
+          padding-left: 4px;
+        }        
+      }
+      li#avatar{
+        width: 26px;
+        height: 26px;
+        margin: -2px -5px 0 0;
+        border: 1px solid #D0D0D0;
+        background: white;
+
+        img{
+          padding: 1px;
+        }
+      }
+      li.last, li:last-child{
+        margin-right: 0px;
+      }
+    }
+  }
+}

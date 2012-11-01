@@ -1,0 +1,5 @@
+<% if @commits.empty? %>
+  You don't have any commits on Github. Work, and then maybe you'll make some money!
+<% else %>
+  <%= render "commits", :commits => @commits %>
+<% end %>

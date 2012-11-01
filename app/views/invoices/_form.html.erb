@@ -1,0 +1,130 @@
+<%= content_for :javascripts do %>
+  <script type="text/javascript">
+    function updateGrandTotal(invoice){
+      $("#invoice-price").html(invoice.grandTotal().toString());
+    }
+
+    function buildInvoice(project, invoice){
+      invoice.resetEntries();
+      $(".entryMinutes").each(function() {
+        var description = $(this).siblings(".entryDescription").val();
+        var time = $(this).val();
+        var entry = new InvoiceEntry(project, time, description);
+        invoice.add(entry);
+        updateGrandTotal(invoice);
+      });
+    }
+
+    jQuery(function($){
+      var project, invoice;
+      window.project = new Project('<%= @project.name %>', <%= @project.rate.to_f %>);
+      window.invoice = new Invoice();
+      updateGrandTotal(window.invoice);
+      buildInvoice(window.project, window.invoice);
+      $(".entryMinutes").live('change', function() {
+        buildInvoice(window.project, window.invoice);
+      });
+    });
+  </script>
+<% end %>
+
+<%= form_for [@project, @invoice] do |f| -%>
+
+  <% if @invoice.errors.any? %>
+    <div class="errors">
+      <h3>Problems with your data</h3>
+      
+      <p>
+        <%= pluralize @invoice.errors.size, 'error' %> prevented your invoice from being saved. Fix the data you entered to continue the process.
+      </p>
+      
+      <ol>
+        <% @invoice.errors.full_messages.each do |msg| %>
+          <li><%= msg %>.</li>
+        <% end %>
+      </ol>
+    </div>
+  <% end %>
+
+
+  <h3>Invoice Title</h3>
+  <p>
+    <%= f.text_field :title,
+          :placeholder => "Invoice for #{@project.name}" %>
+  </p>
+  
+  <h3>Recipient Information</h3>
+  <p>
+    <%= f.text_area :recipient,
+        :placeholder => "Recipient Information",
+        :rows => 5 %>
+  </p>
+
+  <h3>Freelancer Information</h3>
+
+  <p>
+    <%= f.text_field :creator_name,
+          :value => "#{@invoice.creator_name.presence || current_user.name_or_username}",
+          :placeholder => "#{current_user.name_or_username}" %>
+  </p>
+
+  <p>
+    <%= f.text_area :creator_details,
+        :placeholder => "Contact Information", :rows => 5 %>
+  </p>
+
+  <p>
+    <%= f.text_field :date,
+        :value => "#{@invoice.date.presence || Date.today.strftime('%b %e, %Y')}",
+        :placeholder => "#{Date.today.strftime('%b %e, %Y')}",
+        :style => "max-width: 150px" %>
+  </p>
+  
+  <h3>Invoice Rate</h3>
+  
+  <p class="description">
+    The default invoice rate is the project's one, but you're free to change it.
+  </p>
+  
+  <p>
+    $ <%= f.text_field :rate,
+        :placeholder => "#{@invoice.rate}", :value => @invoice.rate, :style => "width: 80px;" %>
+  </p>
+  
+  
+
+  <div id="task-headers">
+    <span class="task-description">Task Descriptions</span>
+    <span class="task-duration">Task Duration</span>
+  </div>
+  <ul>
+    <%= f.fields_for :entries do |entry| -%>
+      <%= render 'entry_fields', builder: entry %>
+    <% end -%>
+
+    <p class="add_fields">
+      <%= link_to_add_fields "Add Entry", f, :entries %>
+    </p>
+  </ul>
+
+  <div class="price">
+    <h3>Total Price <span id="invoice-price"></span></h3>
+    
+      <% if @project.rate.to_f <= 0 %>
+        <span class="not_charging_message">
+          - The price is 0 because you haven't set up the hourly rate for this project yet.
+           <%= link_to "Edit", "#", :class => "edit_project_rate edit" %>
+        </span>
+      <% else %>
+        <span>
+          - Your default hourly rate for this project is <strong class="hourly_rate"><%= number_to_currency @project.rate %></strong>.
+          <%#= link_to "Edit", "#", :class => "edit_project_rate edit" %>        
+        </span>
+      <% end %>
+      
+    </span>
+  </div>
+  
+  
+  <%= f.submit %>
+<% end -%>

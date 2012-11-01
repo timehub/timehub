@@ -1,0 +1,11 @@
+<ul id="user-nav">
+  <li id="avatar"><%= user_avatar_tag(current_user, :size => 24) %></li>
+  <li><strong><%= current_user.username %></strong></li>
+  <li><%= link_to "My Repositories", projects_path %></li>
+  <li><%= link_to "My Invoices", invoices_path %></li>
+  <li><%= link_to "About", about_path %></li>
+  <li><%= link_to "Help", help_path %></li>
+  <li><%= link_to "Blog",  blog_path %></li>
+  <li><%= link_to "Log Out", logout_path %></li>
+</ul>
+<%= clear %>

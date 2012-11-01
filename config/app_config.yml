@@ -1,0 +1,12 @@
+development:
+  github_id: TOKEN
+  github_secret: TOKEN
+
+test:
+  github_id: TOKEN
+  github_secret: TOKEN
+
+production:
+  github_id: TOKEN
+  github_secret: TOKEN
+
