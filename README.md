@@ -1,3 +1,17 @@
+Hello There
+===========
+
+Ok, so we open sourced this thing so you can do whatever you want with it. But, please, just make sure it is free. Always. That's our only request.
+
+Also, we will clean it up eventually (we swear!). We need to find some time to make it better.
+
+This was built in 48 hours, somethings may be really ugly, we're glad to answer questions if you want to change some
+parts of the app. Just open an issue and we'll respond.
+
+### The readme from here down, is the one we had at the contest.
+
+------
+
 Important Bugs
 ==============
 1. The hourly rate that is used when an invoice is created should be stored in the invoice! That way when you change the project's rate, it won't change the invoices already created.
